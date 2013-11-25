@@ -36,7 +36,7 @@ or you can use abbreviation for day name:
 
 If there is no information about a day, then we assume that it's closed. Or you can mark day as closed with:
 
-    business_hours.days(1) do
+    business_hours.day(1) do
         closed!
     end
 
