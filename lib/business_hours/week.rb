@@ -21,7 +21,7 @@ module BusinessHours
 
       return true if current_day.nil? or current_day.closed?  # if there is no data for current day, assume that it's closed all day
 
-      current_time = Time.now
+      current_time = Time.zone.now
       current_day.closed_at?(current_time)
     end
 

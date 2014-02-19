@@ -84,4 +84,14 @@ class TestBusinessHours < Test::Unit::TestCase
 
   def test_default_values
   end
+
+  def test_with_a_next_day
+    hours = BusinessHours::Week.new
+    hours.day(Date::ABBR_DAYNAMES[Date.today.wday]) do
+      open_at '20:00'
+      close_at '01:00'
+    end
+
+    Timecop.travel(Time.zone.now.change(hour: 21, minutes: 00, day: Date.today.day)) { assert_equal hours.closed?, false }
+  end
 end
