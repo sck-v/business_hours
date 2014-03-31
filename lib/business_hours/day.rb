@@ -63,7 +63,7 @@ module BusinessHours
       open = @open_at.change(day: time.day, month: time.month, year: time.year)
       close = @close_at.change(day: time.day, month: time.month, year: time.year)
 
-      close = close.change(day: close.day + 1) if open > close
+      close = close + 1.day if open > close
 
       result = !time.between?(open, close)
 

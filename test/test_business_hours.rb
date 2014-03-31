@@ -94,4 +94,16 @@ class TestBusinessHours < Test::Unit::TestCase
 
     Timecop.travel(Time.zone.now.change(hour: 21, minutes: 00, day: Date.today.day)) { assert_equal hours.closed?, false }
   end
+
+  def test_with_a_next_day_at_a_month_last_day
+    Timecop.freeze(Date.new(2014, 3, 31)) do
+      hours = BusinessHours::Week.new
+      hours.day(Date::ABBR_DAYNAMES[Date.today.wday]) do
+        open_at '20:00'
+        close_at '01:00'
+      end
+
+      Timecop.travel(Time.zone.now.change(hour: 21, minutes: 00, day: Date.today.day)) { assert_equal hours.closed?, false }
+    end
+  end
 end
